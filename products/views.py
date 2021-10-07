@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -55,6 +55,7 @@ def products(request):
                 'price': 2890,
                 'in_basket': False
             },
-        ]
+        ],
+        'copyright': datetime.now(),
     }
     return render(request, 'products/products.html', context)
