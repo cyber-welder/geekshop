@@ -25,27 +25,27 @@ class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4',
         'placeholder': 'Введите имя пользователя'
-    }))
+    }), label='Имя пользователя')
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'class': 'form-control py-4',
         'placeholder': 'Введите адрес эл. почты'
-    }))
+    }), label='E-mail')
     first_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4',
         'placeholder': 'Введите имя'
-    }))
+    }), label='Имя')
     last_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4',
         'placeholder': 'Введите фамилию'
-    }))
+    }), label='Фамилия')
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control py-4',
         'placeholder': 'Введите пароль'
-    }))
+    }), label='Пароль')
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control py-4',
         'placeholder': 'Подтвердите пароль'
-    }))
+    }), label='Пароль')
 
     class Meta:
         model = User
