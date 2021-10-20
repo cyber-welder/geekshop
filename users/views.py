@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.contrib import messages
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from baskets.models import Basket
 
 
 def login(request):
@@ -60,7 +61,8 @@ def profile(request):
 
     context = {
         'title': 'GeekShop - Профиль',
-        'form': form
+        'form': form,
+        'baskets': Basket.objects.filter(user=request.user),
     }
     return render(request, 'users/profile.html', context)
 
