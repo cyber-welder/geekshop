@@ -1,4 +1,5 @@
 from django.shortcuts import HttpResponseRedirect
+from django.contrib import messages
 
 from products.models import Product
 from baskets.models import Basket
@@ -10,12 +11,16 @@ def basket_add(request, product_id):
 
     if not baskets.exists():
         Basket.objects.create(user=request.user, product=product, quantity=1)
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        messages.success(request, 'Товар успешно добавлен в корзину')
     else:
         basket = baskets.first()
-        basket.quantity += 1
-        basket.save()
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        if basket.quantity >= product.quantity:
+            messages.warning(request, 'Не возможно добавить товар! Количество товара ограничено.')
+        else:
+            basket.quantity += 1
+            basket.save()
+            messages.success(request, 'Товар успешно добавлен в корзину')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 def basket_remove(request, id):
