@@ -17,7 +17,7 @@ def products(request):
     categories = ProductCategory.objects.all()
     baskets = {}
     if request.user.is_authenticated:
-        baskets = {basket.product: basket.id for basket in Basket.objects.filter(user=request.user)}
+        baskets = {basket.id: basket.product for basket in Basket.objects.filter(user=request.user)}
 
     context = {
         'title': 'GeekShop - Каталог',

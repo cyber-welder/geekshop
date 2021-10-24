@@ -16,7 +16,7 @@ def basket_add(request, product_id):
             Basket.objects.create(user=request.user, product=product, quantity=1)
         context = {
             'product': product,
-            'baskets': {basket.product: basket.id for basket in Basket.objects.filter(user=request.user)},
+            'baskets': {basket.id: basket.product for basket in Basket.objects.filter(user=request.user)},
         }
         return JsonResponse({
             'result': render_to_string('products/button.html', context)
@@ -30,7 +30,7 @@ def basket_remove(request, id):
     if request.is_ajax():
         context = {
             'product': basket.product,
-            'baskets': {basket.product: basket.id for basket in Basket.objects.filter(user=request.user)},
+            'baskets': {basket.id: basket.product for basket in Basket.objects.filter(user=request.user)},
         }
         result = render_to_string('products/button.html', context)
         return JsonResponse({
@@ -52,9 +52,9 @@ def basket_edit(request, id, quantity):
                 basket.save()
         else:
             basket.delete()
-    context = {
-        'baskets': baskets
-    }
-    return JsonResponse({
-        'result': render_to_string('baskets/basket.html', context)
-    })
+        context = {
+            'baskets': baskets
+        }
+        return JsonResponse({
+            'result': render_to_string('baskets/basket.html', context)
+        })
