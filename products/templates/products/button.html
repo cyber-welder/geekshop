@@ -1,0 +1,6 @@
+{% if product in baskets.values %}
+    <!--  Здесь конечно трешово получилось  -->
+    <button type="button" action="remove" class="btn btn-outline-danger" name="{% for key, value in baskets.items %}{% if product == value %}{{ key }}{% endif %}{% endfor %}">Убрать из корзины</button>
+{% else %}
+    <button type="button" action="add" class="btn btn-outline-success" name="{{ product.id }}">Отправить в корзину</button>
+{% endif %}
