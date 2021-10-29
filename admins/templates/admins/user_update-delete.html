@@ -4,7 +4,7 @@
 
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">Редактирование пользователя | {{ user.username}}</h1>
+            <h1 class="mt-4">Редактирование пользователя | {{ user.username }}</h1>
             <div class="card-body">
                 <form action="{% url 'admins:user_update' user.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
