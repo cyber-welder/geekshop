@@ -12,29 +12,21 @@ from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
 
 class AdminTemplateView(TemplateView):
     template_name = 'admins/index.html'
+    extra_context = {'title': 'Geekshop - Панель администратора'}
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(AdminTemplateView, self).dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(AdminTemplateView, self).get_context_data(**kwargs)
-        context['title'] = 'Geekshop - Панель администратора'
-        return context
-
 
 class UserListView(ListView):
     model = User
     template_name = 'admins/user_read.html'
+    extra_context = {'title': 'Админ-панель - Пользователи'}
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(UserListView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(UserListView, self).get_context_data(**kwargs)
-        context['title'] = 'Админ-панель - Пользователи'
-        return context
 
 
 class UserCreateView(CreateView):
@@ -42,15 +34,11 @@ class UserCreateView(CreateView):
     form_class = UserAdminRegistrationForm
     success_url = reverse_lazy('admins:users')
     template_name = 'admins/user_create.html'
+    extra_context = {'title': 'Админ-панель - Новый пользователь'}
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(UserCreateView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(UserCreateView, self).get_context_data(**kwargs)
-        context['title'] = 'Админ-панель - Новый пользователь'
-        return context
 
 
 class UserUpdateView(UpdateView):
@@ -58,15 +46,11 @@ class UserUpdateView(UpdateView):
     form_class = UserAdminProfileForm
     success_url = reverse_lazy('admins:users')
     template_name = 'admins/user_update-delete.html'
+    extra_context = {'title': 'Админ-панель - Редактирование пользователя'}
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(UserUpdateView, self).get_context_data(**kwargs)
-        context['title'] = 'Админ-панель - Редактирование пользователя'
-        return context
 
 
 class UserDeleteView(DeleteView):
