@@ -11,19 +11,15 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 
-def products(request):
-
-    goods = Product.objects.all()
-    categories = ProductCategory.objects.all()
-    baskets = {}
-    if request.user.is_authenticated:
-        baskets = {basket.id: basket.product for basket in Basket.objects.filter(user=request.user)}
+def products(request, category_id=None):
 
     context = {
         'title': 'GeekShop - Каталог',
-        'products': goods,
-        'categories': categories,
-        'baskets': baskets,
+        'categories': ProductCategory.objects.all(),
         'copyright': datetime.now(),
+        'products': Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
     }
+    if request.user.is_authenticated:
+        context['baskets'] = {basket.id: basket.product for basket in Basket.objects.filter(user=request.user)}
+
     return render(request, 'products/products.html', context)
