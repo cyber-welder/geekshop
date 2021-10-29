@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic import TemplateView
@@ -81,5 +81,5 @@ class UserDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         success_url = self.get_success_url()
-        self.object.safe_delete()
+        self.object.save_delete()
         return HttpResponseRedirect(success_url)
